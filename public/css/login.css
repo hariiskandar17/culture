@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
+
+/*
+    Main Style
+*/
+
+html,
+body {
+    height: 100vh;
+    width: 100%;
+    font-family: "Poppins", sans-serif;
+}
+
+h1 {
+    padding: 30px 0 0 0;
+    margin: 80px 0 0 0;
+}
+
+p {
+    margin: 10px 0 80px 0;
+}
+
+
+/*
+    Form Style
+*/
+
+.container-fluid .row .col-md-5 {
+    text-align: center;
+    padding: 0 60px;
+}
+
+input.form-control {
+    margin: 15px 0;
+    border: 1px solid #2E3B53;
+}
+
+input.form-control:active,
+input.form-control:focus {
+    box-shadow: none;
+    outline: #2E3B53;
+    border: 1px solid #2E3B53;
+}
+
+input.form-control::placeholder {
+    /* Firefox, Chrome, Opera */
+    font-size: 13px;
+    padding: 3px 5px;
+}
+
+form button.btn {
+    margin: 30px 0 80px 0;
+    background: #2E3B53;
+    color: white;
+}
+
+form button.btn:hover {
+    color: white;
+}
+
+a.link {
+    text-decoration: none;
+}
+
+.text-left {
+    margin: 0;
+}
+
+
+/*
+    Image Style
+*/
+
+.container-fluid .row .col-md-7 {
+    padding: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+}
+
+.container-fluid .row .col-md-7 .title {
+    color: white;
+    padding: 0 50px;
+    align-self: flex-end;
+    margin: 0;
+}
+
+.title h1 {
+    margin: 50px 0;
+}
+
+@media only screen and (max-width: 768px) {
+    .container-fluid .row .col-md-7 {
+        display: none;
+    }
+    h1 {
+        margin: 10px 0 0 0;
+    }
+    form button.btn {
+        margin: 20px 0 20px 0;
+    }
+}
