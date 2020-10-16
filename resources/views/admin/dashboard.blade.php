@@ -14,7 +14,7 @@
           <div class="card-body-icon">
             <i class="fas fa-table"></i>
           </div>
-          <h5 class="card-title">Jumlah User</h5>
+          <h5 class="card-title">User</h5>
           <div class="display-4">
             3.000
           </div>
@@ -26,7 +26,7 @@
           <div class="card-body-icon">
             <i class="fas fa-table"></i>
           </div>
-          <h5 class="card-title">Jumlah Lokasi</h5>
+          <h5 class="card-title">Lokasi</h5>
           <div class="display-4">
             3.000
           </div>
@@ -38,7 +38,7 @@
           <div class="card-body-icon">
             <i class="fas fa-table"></i>
           </div>
-          <h5 class="card-title">Jumlah Artikel</h5>
+          <h5 class="card-title">Artikel</h5>
           <div class="display-4">
             3.000
           </div>

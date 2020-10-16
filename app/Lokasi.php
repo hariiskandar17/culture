@@ -18,6 +18,6 @@ class Lokasi extends Authenticatable
    * @var array
    */
   protected $fillable = [
-      'name', 'alamat', 'latitude', 'longitude', 'deskripsi',
+      'name', 'alamat', 'kategori','latitude', 'longitude', 'provinsi', 'kabupaten', 'kecamatan',
   ];
 }

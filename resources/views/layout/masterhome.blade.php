@@ -17,56 +17,85 @@
     <title>Culture Indonesia</title>
 </head>
 <body>
-  <!-- Start Navbar -->
-<nav class="navbar navbar-light main-navbar-sub navbar-expand-lg bg-transparent">
- <div class="container">
-     <span class="navbar-brand mb-0 h1">
-         <img src="{{ asset('assets/img/user/culture2.png') }}" class="img-fluid" width="60" height="60" alt="" srcset="">
-     </span>
-     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-         <span class="navbar-toggler-icon"></span>
-     </button>
-     <div class="collapse navbar-collapse" id="navbarNav">
-         <ul class="navbar-nav mr-auto">
-             <li class="nav-item active">
-                 <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
-             </li>
-             <li class="nav-item">
-                 <a class="nav-link" href="#">Kebudayaan</a>
-             </li>
-             <li class="nav-item">
-                 <a class="nav-link" href="#">Situs Sejarah</a>
-             </li>
-             <li class="nav-item">
-                 <a class="nav-link" href="kontak">Kontak</a>
-             </li>
-             <li class="nav-item">
-                 <a class="nav-link" href="about">Tentang</a>
-             </li>
-         </ul>
-         <!-- <ul class="navbar-nav">
-             <a href="" class="btn section-btn-right btn-default btn-sm">
-                 Masuk
-             </a>
-         </ul> -->
-         <ul class="navbar-nav ml-auto">
-             <li class="nav-item dropdown">
-                 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     <i class="fa fa-user-circle"></i> Nama User
-                 </a>
-                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink1">
-                     <a class="dropdown-item" href="profile.html">Profil</a>
-                     <a class="dropdown-item" href="#">Another action</a>
-                     <div class="dropdown-divider"></div>
-                     <a class="dropdown-item" href="#">Keluar</a>
-                 </div>
-             </li>
-         </ul>
-     </div>
- </div>
-</nav>
+        <!-- Start Navbar -->
+        <nav class="navbar main-navbar navbar-expand-lg fixed-top navbar-light" data-aos="fade-down" data-aos-duration="1500">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon">
+                    </span>
+                </button>
+                <span class="navbar-brand mb-0 h1">Culture</span>
+                <div class="collapse navbar-collapse" id="navbarNav">
 
-<!-- End Navbar -->
+                    <ul class="navbar-nav mr-auto">
+                      @guest
+
+                      <li class="nav-item active">
+                          <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">Kebudayaan</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">Situs Sejarah</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="kontak">Kontak</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="about">Tentang</a>
+                      </li>
+
+
+                      @if (Route::has('register'))
+                      <ul class="navbar-nav">
+                          <a href="{{route('login')}}" class="btn section-btn-right btn-default btn-sm">
+                              Masuk
+                          </a>
+                      </ul>
+                      @endif
+                      @else
+                      <li class="nav-item active">
+                          <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">Kebudayaan</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">Situs Sejarah</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="kontak">Kontak</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="about">Tentang</a>
+                      </li>
+                  </ul>
+                  <ul class="navbar-nav ml-auto">
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-user-circle"></i> {{ Auth::user()->name }}
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink1">
+                              <a class="dropdown-item" href="profile.html">Profil</a>
+                              <a class="dropdown-item" href="#">Another action</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                               document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                               @csrf
+                           </form>
+                          </div>
+                      </li>
+                  </ul>
+                      @endguest
+
+                </div>
+            </div>
+        </nav>
+        <!-- End Navbar -->
 
         <!-- conten -->
         @yield('content')

@@ -39,8 +39,9 @@ class ArtikelController extends Controller
     {
       $data = request()->validate([
           'title' => 'required|max:255',
-          'slug' => 'required|max:255',
-          'status' => 'required'
+          // 'slug' => 'required|max:255',
+          'status' => 'required',
+          'body' => 'required'
       ]);
       // $data['slug'] = \Str::slug($request->title);
       $model = Artikel::create($data);
@@ -83,8 +84,9 @@ class ArtikelController extends Controller
     {
       $this->validate($request, [
         'title' => 'required|max:255',
-        'slug' => 'required',
-        'status' => 'required'
+        // 'slug' => 'required',
+        'status' => 'required',
+        'body' => 'required'
       ]);
 
       $model = Artikel::findOrFail($id);

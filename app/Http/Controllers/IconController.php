@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Icon;
+use App\TypePlace;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -25,7 +25,7 @@ class IconController extends Controller
      */
     public function create()
     {
-      $model = new Icon();
+      $model = new TypePlace();
       return view('admin.icon.form', compact('model'));
     }
 
@@ -38,10 +38,11 @@ class IconController extends Controller
     public function store(Request $request)
     {
       $this->validate($request, [
+          'name' => 'required|string|max:255',
           'icon' => 'required|string|max:255',
       ]);
 
-      $model = Icon::create($request->all());
+      $model = TypePlace::create($request->all());
       return $model;
     }
 
@@ -53,7 +54,7 @@ class IconController extends Controller
      */
     public function show($id)
     {
-        $model = Icon::findOrFail($id);
+        $model = TypePlace::findOrFail($id);
         return view('admin.icon.show', compact('model'));
     }
 
@@ -65,7 +66,7 @@ class IconController extends Controller
      */
     public function edit($id)
     {
-      $model = Icon::findOrFail($id);
+      $model = TypePlace::findOrFail($id);
       return view('admin.icon.form', compact('model'));
     }
 
@@ -79,10 +80,11 @@ class IconController extends Controller
     public function update(Request $request, $id)
     {
       $this->validate($request, [
+          'name' => 'required|string|max:255',
           'icon' => 'required|string|max:255',
       ]);
 
-      $model = Icon::findOrFail($id);
+      $model = TypePlace::findOrFail($id);
 
       $model->update($request->all());
     }
@@ -95,12 +97,12 @@ class IconController extends Controller
      */
     public function destroy($id)
     {
-      $model = Icon::findOrFail($id);
+      $model = TypePlace::findOrFail($id);
       $model->delete();
     }
     public function dataTable()
     {
-        $model = Icon::query();
+        $model = TypePlace::query();
         return DataTables::of($model)
             ->addColumn('action', function ($model) {
                 return view('layoutadmin._action', [

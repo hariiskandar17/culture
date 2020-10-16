@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\SitePlace;
-use App\TypePlace;
+use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-class SitePlaceController extends Controller
+class CommentController extends Controller
 {
 
     public function __construct()
@@ -23,8 +21,7 @@ class SitePlaceController extends Controller
      */
     public function index()
     {
-        $data = SitePlace::get();
-        return view('admin.map.index', compact('data'));
+        //
     }
 
     /**
@@ -34,8 +31,7 @@ class SitePlaceController extends Controller
      */
     public function create()
     {
-        $kategori = TypePlace::get();
-        return view('admin.map.create', compact('kategori'));
+        //
     }
 
     /**
@@ -46,19 +42,16 @@ class SitePlaceController extends Controller
      */
     public function store(Request $request)
     {
-        $isi = request()->validate([
-            'name' => 'required',
-            'addres' => 'required',
-            'type_id' => 'required',
-            'id_provinsi' => 'required',
-            'id_kabupaten' => 'required',
-            'id_kecamatan' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required'
+        request()->validate([
+            'coment' => 'required'
         ]);
-        $isi = Auth::user()->places()->create($isi);
-        $data = SitePlace::get();
-        return redirect(route('site.index', compact('data')));
+        $data = [
+            'id_article' => $request->id_article,
+            'id_user' => Auth::user()->id,
+            'content' => $request->coment
+        ];
+        Comment::create($data);
+        return back();
     }
 
     /**
@@ -67,9 +60,9 @@ class SitePlaceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(SitePlace $site)
+    public function show($id)
     {
-        return view('admin.map.show', compact('site'));
+        //
     }
 
     /**
@@ -80,8 +73,7 @@ class SitePlaceController extends Controller
      */
     public function edit($id)
     {
-        $data = DB::table('site_places')->where('id', $id)->first();
-        return view('admin.map.edit', compact('data'));
+        //
     }
 
     /**

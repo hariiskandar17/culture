@@ -11,10 +11,12 @@
 |
 */
 
-// user
+use Illuminate\Http\Resources\Json\Resource;
+
 Auth::routes();
+
 Route::get('/', function () {
-    return view('user/dashboard');
+    return view('user.dashboard');
 });
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/prov', 'HelpController@prov')->name('prov');
@@ -28,7 +30,7 @@ Route::resource('/profile', 'ProfileController');
 Route::resource('/type-place', 'TypePlaceController');
 Route::resource('/site', 'SitePlaceController');
 // Help
-// anduser
+
 
 
 // admin

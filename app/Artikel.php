@@ -18,6 +18,6 @@ class Artikel extends Authenticatable
    * @var array
    */
   protected $fillable = [
-      'title', 'slug', 'status',
+      'title', 'slug', 'status', 'body',
   ];
 }

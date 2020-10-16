@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Lokasi;
+use App\TypePlace;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -25,8 +26,11 @@ class LokasiController extends Controller
      */
     public function create()
     {
+      $kategori = TypePlace::get();
       $model = new Lokasi();
-      return view('admin.lokasi.form', compact('model'));
+      return view('admin.lokasi.form')
+      ->with(compact('model'))
+      ->with(compact('kategori'));
     }
 
     /**
@@ -40,6 +44,10 @@ class LokasiController extends Controller
       $this->validate($request, [
           'name' => 'required',
           'alamat' => 'required',
+          'kategori' => 'required',
+          'provinsi' => 'required',
+          'kabupaten' => 'required',
+          'kecamatan' => 'required',
           'latitude' => 'required',
           'longitude' => 'required',
           'deskripsi' => 'required',
@@ -70,8 +78,9 @@ class LokasiController extends Controller
      */
     public function edit($id)
     {
+      $kategori = TypePlace::get();
       $model = Lokasi::findOrFail($id);
-      return view('admin.lokasi.form', compact('model'));
+      return view('admin.lokasi.form', compact('model'),compact('kategori'));
     }
 
     /**
@@ -84,10 +93,15 @@ class LokasiController extends Controller
     public function update(Request $request, $id)
     {
       $this->validate($request, [
-        'name' => 'required|max:255',
+        'name' => 'required',
         'alamat' => 'required',
+        'kategori' => 'required',
+        'provinsi' => 'required',
+        'kabupaten' => 'required',
+        'kecamatan' => 'required',
         'latitude' => 'required',
-        'longitude' => 'required'
+        'longitude' => 'required',
+        'deskripsi' => 'required',
       ]);
 
       $model = Lokasi::findOrFail($id);

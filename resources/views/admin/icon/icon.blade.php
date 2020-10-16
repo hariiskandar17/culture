@@ -25,6 +25,7 @@
               <thead>
                   <tr>
                       <th class="text-center" width="5%">Id</th>
+                      <th class="text-center">Nama</th>
                       <th class="text-center">Icon</th>
                       <th class="text-center" width="17%">Action</th>
                   </tr>
@@ -49,6 +50,7 @@
             ajax: "{{ route('table.icon') }}",
             columns: [
                 {data: 'id', name: 'id'},
+                {data: 'name', name: 'name'},
                 {data: 'icon', name: 'icon'},
                 {data: 'action', name: 'action'}
             ]

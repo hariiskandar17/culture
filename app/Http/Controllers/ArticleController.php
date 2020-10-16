@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -75,7 +82,9 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return view('show', compact('article'));
+        $komen = Comment::where('id_article', $article->id)->get();
+        return view('show', ['article' => $article, 'komen' => $komen]);
+        // return view('show', compact('article'));
     }
 
     /**

@@ -12,7 +12,7 @@
         <h4 style="padding-left: 5px;"> Lokasi</h4 mar>
       </div>
       <div class="col-md-6">
-        <a href="{{ route('artikel.create')}}" class="btn btn-success modal-show" title="Create User"><i class="icon-plus"></i>Tambah Data</a>
+        <a href="{{ route('artikel.create')}}" class="btn btn-success modal-show" title="Tambah Artikel"><i class="icon-plus"></i>Tambah Data</a>
       </div>
 
     </div>
@@ -28,6 +28,7 @@
                       <th class="text-center">Title</th>
                       <th class="text-center">Slug</th>
                       <th class="text-center">Status</th>
+                      <th class="text-center">Body</th>
                       <th class="text-center" width="17%">Action</th>
                   </tr>
               </thead>
@@ -54,22 +55,9 @@
                 {data: 'title', name: 'title'},
                 {data: 'slug', name: 'slug'},
                 {data: 'status', name: 'status'},
+                {data: 'body', name: 'body'},
                 {data: 'action', name: 'action'}
             ]
         });
-      //   $(document).ready(function() {
-      //     $('#datatable').DataTable({
-      //       responsive: true,
-      //       processing: true,
-      //       serverSide: true,
-      //       ajax: "{{ route('table.user') }}",
-      //       columns: [
-      //           {data: 'id', name: 'id'},
-      //           {data: 'name', name: 'name'},
-      //           {data: 'email', name: 'email'},
-      //           {data: 'action', name: 'action'}
-      //       ]}
-      //     );
-      // } );
     </script>
 @endpush
