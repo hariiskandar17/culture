@@ -1,59 +1,72 @@
+@extends('admin.layoutadmin.master')
+
+@section('title')
+ tambah
+@stop
+@section('content')
 <style media="screen">
   #mapid{height: 400px;margin-bottom: 10px;}
 </style>
-{!! Form::model($model, [
-    'route' => $model->exists ? ['lokasi.update', $model->id] : 'lokasi.store',
-    'method' => $model->exists ? 'PUT' : 'POST'
-]) !!}
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="" class="control-label">Name</label>
-          {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name']) !!}
-        </div>
-        <div class="form-group">
-          <label for="" class="control-label">Alamat</label>
-          {!! Form::textarea('alamat', null, ['class' => 'form-control', 'id' => 'alamat', 'rows' => '9']) !!}
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="" class="control-label">Kategori</label>
-          {!! Form::select('kategori', $kategori->pluck('name'), $kategori->pluck('id'), ['class' => 'form-control', 'id' => 'kategori']) !!}
-        </div>
-        <div class="form-group">
-          <label for="" class="control-label">Provinsi</label>
-          {!! Form::select('provinsi', ["Pilih Provinsi"] , null, ['class' => 'form-control js-example-basic-single', 'id' => 'provinsi']) !!}
-        </div><div class="form-group">
-          <label for="" class="control-label">Kabupaten</label>
-          {!! Form::select('kabupaten', ["Pilih Kabupaten"] , null, ['class' => 'form-control js-example-basic-single', 'id' => 'kabupaten']) !!}
-        </div>
-        <div class="form-group">
-          <label for="" class="control-label">Kecamatan</label>
-          {!! Form::select('kecamatan', ["Pilih kecamatan"] , null, ['class' => 'form-control js-example-basic-single', 'id' => 'kecamatan']) !!}
-        </div>
-      </div>
-    </div>
-    <div class="form-group text-center">
-      <label for="" class="control-label">Deskripsi</label>
-      {!! Form::textarea('deskripsi', null, ['class' => 'form-control', 'id' => 'deskripsi']) !!}
-    </div>
-    <div class="row">
-      <div class="form-group col-md-6">
-        <label for="" class="control-label">Latitude</label>
-        {!! Form::number('latitude', null, ['class' => 'form-control', 'id' => 'latitude']) !!}
-      </div>
-      <div class="form-group col-md-6">
-        <label for="" class="control-label">Longitude</label>
-        {!! Form::number('longitude', null, ['class' => 'form-control', 'id' => 'longitude']) !!}
-      </div>
-    </div>
+<form action="{{route('lokasi.store')}}" method="POST" enctype="multipart/form-data">
 
-    <div id="mapid"></div>
+<div class="row">
+ @csrf
+ <div class="col-md-6">
+   <div class="form-group">
+     <label for="" class="control-label">Name</label>
+     {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name']) !!}
+   </div>
+   <div class="form-group">
+     <label for="" class="control-label">Alamat</label>
+     {!! Form::textarea('alamat', null, ['class' => 'form-control', 'id' => 'alamat', 'rows' => '5']) !!}
+   </div>
+   <div class="form-group">
+     <label for="" class="control-label">g</label>
+     {!! Form::file('gambar', null, ['class' => 'form-control', 'id' => 'gambar']) !!}
+   </div>
+ </div>
+ <div class="col-md-6">
+   <div class="form-group">
+     <label for="" class="control-label">Kategori</label>
+     {!! Form::select('id_kategori', $kategori->pluck('name'), $kategori->pluck('id'), ['class' => 'form-control', 'id' => 'id_kategori']) !!}
+   </div>
+   <div class="form-group">
+     <label for="" class="control-label">Provinsi</label>
+     {!! Form::select('provinsi', ["Pilih Provinsi"], null , ['class' => 'form-control js-example-basic-single', 'id' => 'provinsi']) !!}
+   </div><div class="form-group">
+     <label for="" class="control-label">Kabupaten</label>
+     {!! Form::select('kabupaten', ["Pilih Kabupaten"] , null, ['class' => 'form-control js-example-basic-single', 'id' => 'kabupaten']) !!}
+   </div>
+   <div class="form-group">
+     <label for="" class="control-label">Kecamatan</label>
+     {!! Form::select('kecamatan', ["Pilih kecamatan"] , null, ['class' => 'form-control js-example-basic-single', 'id' => 'kecamatan']) !!}
+   </div>
+ </div>
+</div>
+<div class="form-group text-center">
+ <label for="" class="control-label">Deskripsi</label>
+ {!! Form::textarea('deskripsi', null, ['class' => 'form-control', 'id' => 'deskripsi']) !!}
+</div>
+<div class="row">
+ <div class="form-group col-md-6">
+   <label for="" class="control-label">Latitude</label>
+   {!! Form::text('latitude', null, ['class' => 'form-control', 'id' => 'latitude']) !!}
+ </div>
+ <div class="form-group col-md-6">
+   <label for="" class="control-label">Longitude</label>
+   {!! Form::text('longitude', null, ['class' => 'form-control', 'id' => 'longitude']) !!}
+ </div>
+</div>
 
+<div id="mapid"></div>
 
-
-{!! Form::close() !!}
+<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+<button type="submit" id="formSave1" class="btn btn-primary">Simpan</button>
+</div>
+<div class="modal-footer" id="modal-footer">
+</div>
+</form>
+@endsection
 
 {{-- Leaftlet JS --}}
 <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
@@ -72,7 +85,6 @@
 
 
 <script>
-
     $(document).ready(function () {
 
     var tiles = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{

@@ -41,6 +41,6 @@ class ResetPasswordController extends Controller
         ]);
 
         User::find(auth()->user()->id)->update(['password' => Hash::make($request->password1)]);
-        return redirect(route('article.index'));
+        return back();
     }
 }

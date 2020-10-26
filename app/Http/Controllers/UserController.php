@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\TypePlace;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.user.user');
+      $kategori = TypePlace::get();
+      return view('admin.user.user')
+      ->with(compact('kategori'));
     }
 
     /**
@@ -105,7 +108,7 @@ class UserController extends Controller
         $model = User::query();
         return DataTables::of($model)
             ->addColumn('action', function ($model) {
-                return view('layoutadmin._action', [
+                return view('admin.layoutadmin._action', [
                     'model' => $model,
                     'url_show' => route('user.show', $model->id),
                     'url_edit' => route('user.edit', $model->id),

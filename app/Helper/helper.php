@@ -1,6 +1,7 @@
 <?php
 
 use App\Comment;
+use App\Deskripsi;
 use Illuminate\Support\Facades\DB;
 
 // Ini id nya manual dari database bisi poho
@@ -102,4 +103,10 @@ function Kec($id, $kab)
         }
     }
     return $result;
+}
+
+function Bisa($id)
+{
+  $data = Deskripsi::where('id_lokasi',$id)->get();
+  return $data;
 }

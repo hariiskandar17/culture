@@ -1,4 +1,4 @@
-@extends('Layoutadmin.master')
+@extends('admin.layoutadmin.master')
 
 @section('title')
   Admin Cagar Budaya
@@ -10,7 +10,7 @@
 
   <div class="row">
   <div class="col-xs-12 col-sm-4">
-      <div class="card-body-row" style="background: blue;">
+      <div class="card-body-row" style="background: #ef5777;">
           <div class="card-body-icon">
             <i class="fas fa-table"></i>
           </div>
@@ -22,7 +22,7 @@
       </div>
   </div>
   <div class="col-xs-12 col-sm-4">
-      <div class="bg-primary card-body-row">
+      <div class="card-body-row" style="background: #575fcf;">
           <div class="card-body-icon">
             <i class="fas fa-table"></i>
           </div>
@@ -34,7 +34,7 @@
       </div>
   </div>
   <div class="col-xs-12 col-sm-4">
-      <div class="card-body-row" style="background: red;">
+      <div class="card-body-row" style="background: #ffdd59;">
           <div class="card-body-icon">
             <i class="fas fa-table"></i>
           </div>

@@ -17,7 +17,13 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('profile.index', compact('user'));
+        return view('home.profile', compact('user'));
+    }
+
+
+    public function Tes()
+    {
+      echo "string";
     }
 
     /**
@@ -28,7 +34,7 @@ class ProfileController extends Controller
     public function create()
     {
         $user = Auth::user();
-        return view('profile.pass', compact('user'));
+        return view('home.edit', compact('user'));
     }
 
     /**
@@ -39,7 +45,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        // 
+        //
     }
 
     /**
@@ -50,7 +56,8 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        //
+      $user = Auth::user();
+      return view('home.reset', compact('user'));
     }
 
     /**
@@ -61,7 +68,8 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        // 
+      $user = Auth::user();
+      return view('home.edit', compact('user'));
     }
 
     /**

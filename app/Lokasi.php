@@ -2,22 +2,25 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-
 use Illuminate\Database\Eloquent\Model;
 
-class Lokasi extends Authenticatable
+class Lokasi extends Model
 {
-  use Notifiable;
+  protected $fillable = ['lokasi', 'id', 'id_kategori', 'name', 'alamat', 'provinsi', 'kabupaten', 'kecamatan',  'latitude', 'longitude'];
 
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array
-   */
-  protected $fillable = [
-      'name', 'alamat', 'kategori','latitude', 'longitude', 'provinsi', 'kabupaten', 'kecamatan',
-  ];
+
+  public function type()
+  {
+      return $this->hasOne(lokasi::class, 'id', 'type_id');
+  }
+
+  public function deskripsi()
+    {
+        return $this->hasOne(Deskripsi::class, 'id_lokasi', 'id');
+    }
+
+    public function detail($id)
+    {
+        return $this->hasOne(Deskripsi::class, 'id_lokasi', $id);
+    }
 }

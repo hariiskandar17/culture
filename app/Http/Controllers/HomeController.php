@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Deskripsi;
+use App\Lokasi;
 class HomeController extends Controller
 {
     /**
@@ -24,5 +25,12 @@ class HomeController extends Controller
     public function index()
     {
         return view('home.index');
+    }
+
+    public function detail($id)
+    {
+      $data = Deskripsi::findOrFail($id);
+      $judul = Lokasi::findOrFail($id);
+      return view('home.detail-lok',['data' => $data,'judul' => $judul]);
     }
 }

@@ -1,7 +1,7 @@
-@extends('layoutadmin.master')
+@extends('admin.layoutadmin.master')
 
 @section('title')
- Data
+ Admin
 @stop
 
 @section('content')
@@ -10,9 +10,6 @@
     <div class="row">
       <div class="col-md-12">
         <h4 style="padding-left: 5px;"> Users Data</h4 mar>
-      </div>
-      <div class="col-md-6">
-        <a href="{{ route('user.create')}}" class="btn btn-success modal-show" title="Create User"><i class="icon-plus"></i>Tambah Data</a>
       </div>
 
     </div>

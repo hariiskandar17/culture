@@ -1,4 +1,4 @@
-@extends('layoutadmin.master')
+@extends('admin.layoutadmin.master')
 
 @section('title')
  Icon
@@ -52,7 +52,7 @@
                 {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},
                 {data: 'icon', name: 'icon'},
-                {data: 'action', name: 'action'}
+                {data: 'action', name: 'action', class: 'text-center'}
             ]
         });
     </script>

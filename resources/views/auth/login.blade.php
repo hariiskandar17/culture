@@ -50,7 +50,7 @@
                 <br>
                 <small>TIdak Punya Akun ? <a href="" class="link">Daftar</a></small>
             </div>
-            <div class="col-md-7" style="background: url({{ asset('assets/img/user/login.png') }}) no-repeat;">
+            <div class="col-md-7">
                 <div class="title">
                     <h1>
                         Culture

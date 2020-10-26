@@ -58,6 +58,50 @@ $('#modal-btn-save').click(function (event) {
         }
     })
 });
+// $('#modal-btn-simpan').click(function (event) {
+//   event.preventDefault();
+//
+//   if($('#action').val() == 'Add')
+//
+//   var request = new FormData(this),
+//       form = $('#modal-body form'),
+//       url = form.attr('action'),
+//       method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+//
+//       // form.find('.help-block').remove();
+//       // form.find('.form-group').removeClass('has-error');
+//
+//   $.ajax({
+//       url: "{{ route('lokasi.store') }}",
+//       method: "POST",
+//       data: new FormData(this),
+//       contentType: false,
+//       cache: false,
+//       processData: false,
+//         success: function (response) {
+//             form.trigger('reset');
+//             $('#modal').modal('hide');
+//             $('#datatable').DataTable().ajax.reload();
+//
+//             swal({
+//                 type  : 'success',
+//                 title : 'Berhasil!',
+//                 text  : 'Data Telah Tersimpan!'
+//             });
+//         },
+//         error : function (xhr) {
+//             var res = xhr.responseJSON;
+//             if ($.isEmptyObject(res) == false) {
+//                 $.each(res.errors, function (key, value) {
+//                     $('#' + key)
+//                         .closest('.form-group')
+//                         .addClass('has-error')
+//                         .append('<span class="help-block"><strong>' + value + '</strong></span>');
+//                 });
+//             }
+//         }
+//     })
+// });
 
 $('body').on('click', '.btn-delete', function (event) {
     event.preventDefault();

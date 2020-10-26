@@ -111,7 +111,7 @@ class LokasiBudayaController extends Controller
         $model = culture::query();
         return DataTables::of($model)
             ->addColumn('action', function ($model) {
-                return view('layoutadmin._action', [
+                return view('admin.layoutadmin._action', [
                     'model' => $model,
                     'url_show' => route('culture.show', $model->id),
                     'url_edit' => route('culture.edit', $model->id),

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Deskripsi;
 use App\Lokasi;
 use App\TypePlace;
 use DataTables;
@@ -9,6 +10,11 @@ use Illuminate\Http\Request;
 
 class LokasiController extends Controller
 {
+
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,11 @@ class LokasiController extends Controller
      */
     public function index()
     {
-        return view('admin.lokasi.lokasi');
+      $kategori = TypePlace::get();
+      $model = new Lokasi();
+      return view('admin.lokasi.lokasi')
+      ->with(compact('model'))
+      ->with(compact('kategori'));
     }
 
     /**
@@ -41,21 +51,50 @@ class LokasiController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request, [
-          'name' => 'required',
-          'alamat' => 'required',
-          'kategori' => 'required',
-          'provinsi' => 'required',
-          'kabupaten' => 'required',
-          'kecamatan' => 'required',
-          'latitude' => 'required',
-          'longitude' => 'required',
-          'deskripsi' => 'required',
+        $data = request()->validate( [
+            'name' => 'required',
+            'alamat' => 'required',
+            'id_kategori' => 'required',
+            'provinsi' => 'required',
+            'kabupaten' => 'required',
+            'kecamatan' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'deskripsi' => 'required',
+            'gambar' => 'required'
+        ]);
+            $content = $request->deskripsi;
+             // domdocument() => mengenerate objek dom php
+             $dom = new \domdocument();
+             $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+             $images = $dom->getelementsbytagname('img');
 
+             foreach ($images as $k => $img) {
+                 $data = $img->getAttribute('src');
+                 list($type, $data) = explode(';', $data);
+                 list(, $data)      = explode(',', $data);
+                 $data = base64_decode($data);
+                 $image_name = '/' . time()  . $k . '.png';
+                 $path = public_path('image\img-content') . $image_name;
+                 file_put_contents($path, $data);
+                 $img->removeAttribute('src');
+                 $img->setAttribute('class', 'img-fluid');
+                 $img->setAttribute('src', asset('assets/img/thumbnail') . $image_name);
+             }
+                  $content = $dom->savehtml();
+
+                  $gambar = $request->file('gambar');
+                  $gambarBaru = time().'_'.$gambar->getClientOriginalName();
+                  $tujuan = 'assets/img/thumbnail';
+                  $gambar->move($tujuan,$gambarBaru);
+
+        $model = Lokasi::create($request->all());
+        Deskripsi::create([
+        'id_lokasi' => $model->id,
+        'gambar' => $gambarBaru,
+        'deskripsi' => $content
       ]);
-
-      $model = Lokasi::create($request->all());
-      return $model;
+      return redirect(route('lokasi.index', compact('data')));
     }
 
     /**
@@ -78,9 +117,10 @@ class LokasiController extends Controller
      */
     public function edit($id)
     {
-      $kategori = TypePlace::get();
       $model = Lokasi::findOrFail($id);
-      return view('admin.lokasi.form', compact('model'),compact('kategori'));
+
+      $kategori = TypePlace::where('id',$model->kategori);
+      return view('admin.lokasi.update', compact('model'),compact('kategori'));
     }
 
     /**
@@ -125,7 +165,7 @@ class LokasiController extends Controller
         $model = Lokasi::query();
         return DataTables::of($model)
             ->addColumn('action', function ($model) {
-                return view('layoutadmin._action', [
+                return view('admin.layoutadmin._action', [
                     'model' => $model,
                     'url_show' => route('lokasi.show', $model->id),
                     'url_edit' => route('lokasi.edit', $model->id),
@@ -135,5 +175,18 @@ class LokasiController extends Controller
             ->addIndexColumn()
             ->rawColumns(['action'])
             ->make(true);
+    }
+    public function save(Request $r){
+        // $siswa = new Siswa;
+        // $siswa->nis = $r->input('nis');
+        // $siswa->nama = $r->input('nama');
+        // $siswa->kelas = $r->input('kelas');
+        $foto = $r->file('foto');
+
+        $siswa->foto = $foto->getClientOriginalName();
+        $foto->move(public_path('UploadedFile/foto/'),$foto->getClientOriginalName());
+
+        $siswa->save();
+        echo "sukses";
     }
 }

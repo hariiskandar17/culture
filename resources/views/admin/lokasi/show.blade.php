@@ -1,16 +1,44 @@
-<table class="table table-hover">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Alamat</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
-    </tr>
-    <tr>
-        <td>{{ $model->id }}</td>
-        <td>{{ $model->name }}</td>
-        <td>{{ $model->alamat }}</td>
-        <td>{{ $model->latitude }}</td>
-        <td>{{ $model->longitude }}</td>
-    </tr>
-</table>
+<form class="form-horizontal">
+  <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Nama</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputEmail3" placeholder="Email" value="{{ $model->name }}">
+      </div>
+  </div>
+  <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Alamat</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputEmail3" placeholder="Email" value="{{ $model->alamat }}">
+      </div>
+  </div>
+  <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Provinsi</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputEmail3" placeholder="Email" value="{{ Prov($model->provinsi) }}">
+      </div>
+  </div>
+  <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Alamat</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputEmail3" placeholder="Email" value="{{ $model->alamat }}">
+      </div>
+  </div>
+  <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Alamat</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputEmail3" placeholder="Email" value="{{ $model->alamat }}">
+      </div>
+  </div>
+  <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Alamat</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputEmail3" placeholder="Email" value="{{ $model->latitude }}">
+      </div>
+  </div>
+  <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Alamat</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputEmail3" placeholder="Email" value="{{ $model->longitude }}">
+      </div>
+  </div>
+</form>

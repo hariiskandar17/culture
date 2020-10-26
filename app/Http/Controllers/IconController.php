@@ -15,7 +15,9 @@ class IconController extends Controller
      */
     public function index()
     {
-          return view('admin.icon.icon');
+      $kategori = TypePlace::get();
+      return view('admin.icon.icon')
+      ->with(compact('kategori'));
     }
 
     /**
@@ -105,7 +107,7 @@ class IconController extends Controller
         $model = TypePlace::query();
         return DataTables::of($model)
             ->addColumn('action', function ($model) {
-                return view('layoutadmin._action', [
+                return view('admin.layoutadmin._action', [
                     'model' => $model,
                     'url_show' => route('icon.show', $model->id),
                     'url_edit' => route('icon.edit', $model->id),
