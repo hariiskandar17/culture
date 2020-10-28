@@ -107,47 +107,6 @@
    </section>
    <!-- End Description -->
 
-   <!-- Start Count -->
-   <section class="count">
-       <div class="container">
-           <div class="row">
-               <div class="col-md-12">
-                   <div class="title-count">
-                       <ul class="list-inline text-center">
-                           <li class="list-inline-item">
-                               <h1>
-                                   <span class="counter">
-                                       <b>26953</b>
-                                   </span>
-                               </h1>
-                               <p>
-                                   Sudah Terverifikasi
-                               </p>
-                               <i class="fa fa-check-circle text-success"></i>
-                           </li>
-                           <li class="list-inline-item">
-                               <h1>
-                                   <span class="counter">
-                                       <b>8109</b>
-                                   </span>
-                               </h1>
-                               <p>
-                                   Belum Terverifikasi
-                               </p>
-                               <i class="fa fa-times-circle text-danger"></i>
-                           </li>
-                       </ul>
-                   </div>
-                   <p class="text-center text-white">
-                       Menurut data yang dilansir oleh <a href="cagarbudaya.kemdikbud.go.id" class="text-decoration-none">cagarbudaya.kemdikbud.go.id</a>, Sampai 13 Juli 2017 terdapat <b>26.953</b> Cagar Budaya terdaftar dan terverifikasi, sedangkan
-                       <b>8.109</b> Cagar Budaya lainnya belum terverifikasi.
-                   </p>
-               </div>
-           </div>
-       </div>
-   </section>
-   <!-- End Count -->
-
    <!-- Testimonial -->
 
    <section class="testimonial">

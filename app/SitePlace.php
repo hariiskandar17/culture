@@ -13,4 +13,14 @@ class SitePlace extends Model
     {
         return $this->hasOne(TypePlace::class, 'id', 'type_id');
     }
+
+    public function deskripsi()
+    {
+        return $this->hasOne(Deskripsi::class,  'id');
+    }
+
+    public function detail($id)
+    {
+        return $this->hasOne(Deskripsi::class, 'id_lokasi', $id);
+    }
 }

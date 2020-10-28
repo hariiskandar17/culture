@@ -1,3 +1,9 @@
+@extends('admin.layoutadmin.master')
+
+@section('title')
+ Ubah
+@stop
+@section('content')
 <style media="screen">
   #mapid{height: 400px;margin-bottom: 10px;}
 </style>
@@ -16,15 +22,20 @@
           {!! Form::textarea('alamat', null, ['class' => 'form-control', 'id' => 'alamat', 'rows' => '5']) !!}
         </div>
         <div class="form-group">
-          <label for="" class="control-label">Gambar</label>
+          <label for="" class="control-label">Thumbnail</label>
           {!! Form::file('gambar', null, ['class' => 'form-control', 'id' => 'gambar']) !!}
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label for="" class="control-label">Kategori</label>
-          {!! Form::select('kategori', [$kategori->pluck('name')], $kategori->pluck('id'), ['class' => 'form-control', 'id' => 'kategori']) !!}
+          <!-- {!! Form::select('kategori', $kategori->pluck('name'), $kategori->pluck('id'), ['class' => 'form-control', 'id' => 'kategori']) !!} -->
+          <!-- <select class="form-control" name="kategori" id="kategori">
+          <option value="{{$kategori->pluck('id')}}">{{$kategori->pluck('name')}}</option>
+        </select> -->
         </div>
+        <form action="{{route('lokasi.store', $model->id)}}" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="form-group">
           <label for="" class="control-label">Provinsi</label>
           {!! Form::select('provinsi', [Prov($model->provinsi)], null , ['class' => 'form-control js-example-basic-single', 'id' => 'provinsi']) !!}
@@ -41,6 +52,7 @@
     <div class="form-group text-center">
       <label for="" class="control-label">Deskripsi</label>
       {!! Form::textarea('deskripsi', null, ['class' => 'form-control', 'id' => 'deskripsi']) !!}
+      <!-- <textarea name="deskripsi" rows="30" class="form-control" id="deskripsi""></textarea> -->
     </div>
     <div class="row">
       <div class="form-group col-md-6">
@@ -54,10 +66,15 @@
     </div>
 
     <div id="mapid"></div>
+    <div class="text-center">
+        <button type="submit" id="formSave1" class="btn btn-primary text-center">Simpan</button>
+    </div>
 
 
 
-{!! Form::close() !!}
+</form>
+
+@endsection
 
 {{-- Leaftlet JS --}}
 <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
@@ -74,7 +91,7 @@
 
 
 
-
+<!--
 <script>
 
     $(document).ready(function () {
@@ -164,8 +181,8 @@
 
 });
 
-</script>
-<script type="text/javascript">
+</script> -->
+<!-- <script type="text/javascript">
 $(document).ready(function () {
           $('#deskripsi').summernote({
               // dialogsInBody: true,
@@ -207,4 +224,4 @@ $(document).ready(function () {
           var popoverId = $(event.target).attr("aria-describedby");
           $("#" + popoverId).css("z-index", zIndex);
       });
-</script>
+</script> -->

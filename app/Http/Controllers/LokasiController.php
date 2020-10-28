@@ -23,7 +23,7 @@ class LokasiController extends Controller
     public function index()
     {
       $kategori = TypePlace::get();
-      $model = new Lokasi();
+      $model = Lokasi::get();
       return view('admin.lokasi.lokasi')
       ->with(compact('model'))
       ->with(compact('kategori'));
@@ -79,13 +79,13 @@ class LokasiController extends Controller
                  file_put_contents($path, $data);
                  $img->removeAttribute('src');
                  $img->setAttribute('class', 'img-fluid');
-                 $img->setAttribute('src', asset('assets/img/thumbnail') . $image_name);
+                 $img->setAttribute('src', asset('deskripsi') . $image_name);
              }
                   $content = $dom->savehtml();
 
                   $gambar = $request->file('gambar');
                   $gambarBaru = time().'_'.$gambar->getClientOriginalName();
-                  $tujuan = 'assets/img/thumbnail';
+                  $tujuan = 'deskripsi';
                   $gambar->move($tujuan,$gambarBaru);
 
         $model = Lokasi::create($request->all());
@@ -94,7 +94,13 @@ class LokasiController extends Controller
         'gambar' => $gambarBaru,
         'deskripsi' => $content
       ]);
-      return redirect(route('lokasi.index', compact('data')));
+      return redirect(route('lokasi.index', compact('data')))->with(
+        ['success' => "<script>
+        Swal.fire(
+      'Good job!',
+      'You clicked the button!',
+      'success'
+        )</script>"]);
     }
 
     /**
@@ -106,7 +112,10 @@ class LokasiController extends Controller
     public function show($id)
     {
       $model = Lokasi::findOrFail($id);
-      return view('admin.lokasi.show', compact('model'));
+      $deskripsi = Deskripsi::findOrFail($id);
+      return view('admin.lokasi.show')
+      ->with(compact('model'))
+      ->with(compact('deskripsi'));
     }
 
     /**
@@ -118,9 +127,12 @@ class LokasiController extends Controller
     public function edit($id)
     {
       $model = Lokasi::findOrFail($id);
-
-      $kategori = TypePlace::where('id',$model->kategori);
-      return view('admin.lokasi.update', compact('model'),compact('kategori'));
+      $kategori = TypePlace::get();
+      $deskripsi = Deskripsi::findOrFail($id);
+      return view('admin.lokasi.update')
+      ->with(compact('model'))
+      ->with(compact('deskripsi'))
+      ->with(compact('kategori'));
     }
 
     /**
@@ -144,9 +156,48 @@ class LokasiController extends Controller
         'deskripsi' => 'required',
       ]);
 
-      $model = Lokasi::findOrFail($id);
+      $content = $request->deskripsi;
+       // domdocument() => mengenerate objek dom php
+       $dom = new \domdocument();
+       $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+       $images = $dom->getelementsbytagname('img');
 
+       foreach ($images as $k => $img) {
+           $data = $img->getAttribute('src');
+           list($type, $data) = explode(';', $data);
+           list(, $data)      = explode(',', $data);
+           $data = base64_decode($data);
+           $image_name = '/' . time()  . $k . '.png';
+           $path = public_path('image\img-content') . $image_name;
+           file_put_contents($path, $data);
+           $img->removeAttribute('src');
+           $img->setAttribute('class', 'img-fluid');
+           $img->setAttribute('src', asset('deskripsi') . $image_name);
+       }
+            $content = $dom->savehtml();
+
+            $gambar = $request->file('gambar');
+            $gambarBaru = time().'_'.$gambar->getClientOriginalName();
+            $tujuan = 'deskripsi';
+            $gambar->move($tujuan,$gambarBaru);
+
+
+      $model = Lokasi::findOrFail($id);
       $model->update($request->all());
+
+      Deskripsi::update([
+      'id_lokasi' => $model->id,
+      'gambar' => $gambarBaru,
+      'deskripsi' => $content
+    ]);
+    return redirect(route('lokasi.index', compact('data')))->with(
+      ['success' => "<script>
+      Swal.fire(
+    'Good job!',
+    'You clicked the button!',
+    'success'
+      )</script>"]);
+
     }
 
     /**
@@ -165,7 +216,7 @@ class LokasiController extends Controller
         $model = Lokasi::query();
         return DataTables::of($model)
             ->addColumn('action', function ($model) {
-                return view('admin.layoutadmin._action', [
+                return view('admin.layoutadmin._actionlokasi', [
                     'model' => $model,
                     'url_show' => route('lokasi.show', $model->id),
                     'url_edit' => route('lokasi.edit', $model->id),
@@ -176,17 +227,17 @@ class LokasiController extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
-    public function save(Request $r){
+    // public function save(Request $r){
         // $siswa = new Siswa;
         // $siswa->nis = $r->input('nis');
         // $siswa->nama = $r->input('nama');
         // $siswa->kelas = $r->input('kelas');
-        $foto = $r->file('foto');
+    //     $foto = $r->file('foto');
 
-        $siswa->foto = $foto->getClientOriginalName();
-        $foto->move(public_path('UploadedFile/foto/'),$foto->getClientOriginalName());
+    //     $siswa->foto = $foto->getClientOriginalName();
+    //     $foto->move(public_path('UploadedFile/foto/'),$foto->getClientOriginalName());
 
-        $siswa->save();
-        echo "sukses";
-    }
+    //     $siswa->save();
+    //     echo "sukses";
+    // }
 }

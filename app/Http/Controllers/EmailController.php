@@ -1,20 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-use App\Deskripsi;
-use App\Lokasi;
-use App\Ulasan;
-use App\User;
 
-class DashboardController extends Controller
-
+class EmailController extends Controller
 {
-    public function __construct()
-    {
-      $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -22,11 +12,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $deskripsi = Ulasan::get();
-        $lokasi = Lokasi::get();
-        $user = User::get();
-        $send = ['lokasi' => count($lokasi), 'user' => count($user),  'ulasan' => count($deskripsi)];
-        return view('admin.dashboard', $send);
+        return view('emails.index');
+        
     }
 
     /**
@@ -47,7 +34,15 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $to_name = 'TO_NAME';
+        $to_email = 'abangabong100@gmail.com';
+        $data = array('name'=>"Sam Jose", "body" => "Test mail");
+            
+        Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)
+                    ->subject('Artisans Web Testing Mail');
+            $message->from('FROM_EMAIL_ADDRESS','Artisans Web');
+        });
     }
 
     /**

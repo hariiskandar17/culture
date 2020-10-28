@@ -19,6 +19,8 @@ Route::get('/', 'HomeController@index')->name('/');
 
 Route::get('/map', 'MapController@index')->name('map.index');
 
+Route::post('/mail', 'MailController@send')->name('send-email');
+
 Route::get('/v-2', 'MapController@v2')->name('v2.index');
 Route::post('/dataMap', 'MapController@mapData')->name('map');
 Route::post('/mapProv', 'MapController@provData');
@@ -33,7 +35,6 @@ Route::resource('/kontak', 'KontakController');
 Route::resource('/kategori', 'KategoriController');
 
 Route::resource('/ulas', 'UlasanController');
-
 
 // Search
 Route::get('/budaya', 'HomeController@budaya');
@@ -68,7 +69,7 @@ Route::get('/detail/{id}', 'HomeController@detail')->name('detail');
 
 // admin
 // dashboard
-Route::resource('/dashboard', 'DashboardController');
+Route::resource('/admin', 'DashboardController');
 // end
 // profile
 Route::resource('/profileadmin', 'ProfileAdminController');
@@ -89,6 +90,7 @@ Route::get('/table/icon', 'IconController@dataTable')->name('table.icon');
 // andicon
 // lokasi culture
 Route::resource('/culture', 'LokasiBudayaController');
+Route::resource('/mail', 'EmailController');
 Route::get('/table/culture', 'LokasiBudayaController@dataTable')->name('table.culture');
 // end lokasi culture
 // andadmin

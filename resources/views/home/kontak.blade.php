@@ -13,26 +13,27 @@
                    <p class="text-center">
                        Silahkan hubungi kami untuk keperluan privasi
                    </p>
-                   <form>
+                   <form action="{{ route('send-email')}}" method="POST">
+                    @csrf
                        <div class="form-row">
                            <div class="form-group col-md-6">
                                <label for="name">Nama</label>
-                               <input type="text" class="form-control" id="name">
+                               <input required type="text" name="nama" class="form-control" id="name">
                            </div>
                            <div class="form-group col-md-6">
                                <label for="inputEmail4">Email</label>
-                               <input type="email" class="form-control" id="inputEmail4">
+                               <input required type="email" name="email" class="form-control" id="inputEmail4">
                            </div>
                        </div>
                        <div class="form-group">
                            <label for="subject">Judul</label>
-                           <input type="text" class="form-control" id="subject">
+                           <input required type="text" name="judul" class="form-control" id="subject">
                        </div>
                        <div class="form-group">
                            <label for="pesan">Pesan</label>
-                           <textarea class="form-control" id="pesan" rows="5"></textarea>
+                           <textarea required class="form-control" name="pesan" id="pesan" rows="5"></textarea>
                        </div>
-                       <button type="submit" class="btn btn-primary section-btn btn-block">Kirim</button>
+                      <button type="submit" class="btn btn-primary section-btn btn-block">Kirim</button>
                    </form>
                </div>
                <div class="col-md-4">

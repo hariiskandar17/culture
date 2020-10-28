@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Ulasan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -35,18 +35,13 @@ class UlasanController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'id_tempat' => 'required',
+        $data = request()->validate([
+            'id_lokasi' => 'required',
             'name' => 'required',
             'email' => 'required',
             'ulasan' => 'required'
         ]);
-        DB::table('ulasans')->insert([
-            'id_tempat' => $request->id_tempat,
-            'name' => $request->name,
-            'email' => $request->email,
-            'tempat' => $request->tempat
-        ]);
+        Ulasan::create($data);
         return back();
     }
 

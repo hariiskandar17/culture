@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\culture;
+use App\Mail;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class LokasiBudayaController extends Controller
      */
     public function index()
     {
-        return view('admin.culture.culture');
+        return view('mail.mail');
     }
 
     /**
@@ -25,7 +26,7 @@ class LokasiBudayaController extends Controller
      */
     public function create()
     {
-      $model = new Culture();
+      // $model = new Culture();
       return view('admin.culture.form', compact('model'));
     }
 
@@ -37,16 +38,12 @@ class LokasiBudayaController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request, [
-          'name' => 'required|string|max:255',
-          'alamat' => 'required|string|max:255',
-          'latitude' => 'required|string|max:255',
-          'longitude' => 'required|string|max:255',
-          'deskti' => 'required|string|max:255',
-      ]);
-
-      $model = Culture::create($request->all());
-      return $model;
+      $to_name = $request->kepada;
+      $to_email = 'abangabong100@gmail.com';
+      $data = array('name'=>"Ogbonna Vitalis(sender_name)", "body" => "A test mail");
+      Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {
+      $message->to($to_email, $to_name)->subject('Laravel Test Mail');
+      $message->from('ANgga','Test Mail');
     }
 
     /**
@@ -55,7 +52,7 @@ class LokasiBudayaController extends Controller
      * @param  \App\culture  $culture
      * @return \Illuminate\Http\Response
      */
-    public function show(culture $culture)
+    public function show($id)
     {
         $model = Culture::findOrFail($id);
         return view('admin.culture.show', compact('model'));
@@ -67,7 +64,7 @@ class LokasiBudayaController extends Controller
      * @param  \App\culture  $culture
      * @return \Illuminate\Http\Response
      */
-    public function edit(culture $culture)
+    public function edit($id)
     {
     $model = Culture::findOrFail($id);
      return view('admin.culture.form', compact('model'));
@@ -80,7 +77,7 @@ class LokasiBudayaController extends Controller
      * @param  \App\culture  $culture
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, culture $culture)
+    public function update(Request $request, $id)
     {
       $this->validate($request, [
         'name' => 'required|string|max:255',
@@ -101,7 +98,7 @@ class LokasiBudayaController extends Controller
      * @param  \App\culture  $culture
      * @return \Illuminate\Http\Response
      */
-    public function destroy(culture $culture)
+    public function destroy($id)
     {
       $model = Culture::findOrFail($id);
       $model->delete();
