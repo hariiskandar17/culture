@@ -144,17 +144,6 @@ class LokasiController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $this->validate($request, [
-        'name' => 'required',
-        'alamat' => 'required',
-        'kategori' => 'required',
-        'provinsi' => 'required',
-        'kabupaten' => 'required',
-        'kecamatan' => 'required',
-        'latitude' => 'required',
-        'longitude' => 'required',
-        'deskripsi' => 'required',
-      ]);
 
       $content = $request->deskripsi;
        // domdocument() => mengenerate objek dom php
@@ -182,6 +171,18 @@ class LokasiController extends Controller
             $gambar->move($tujuan,$gambarBaru);
 
 
+      $this->validate($request, [
+        'name' => 'required',
+        'alamat' => 'required',
+        'kategori' => 'required',
+        'provinsi' => 'required',
+        'kabupaten' => 'required',
+        'kecamatan' => 'required',
+        'latitude' => 'required',
+        'longitude' => 'required',
+        'deskripsi' => 'required',
+      ]);
+
       $model = Lokasi::findOrFail($id);
       $model->update($request->all());
 
@@ -190,14 +191,7 @@ class LokasiController extends Controller
       'gambar' => $gambarBaru,
       'deskripsi' => $content
     ]);
-    return redirect(route('lokasi.index', compact('data')))->with(
-      ['success' => "<script>
-      Swal.fire(
-    'Good job!',
-    'You clicked the button!',
-    'success'
-      )</script>"]);
-
+    return redirect(route('lokasi.index'));
     }
 
     /**
