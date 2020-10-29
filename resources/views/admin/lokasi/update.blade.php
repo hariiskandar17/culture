@@ -7,10 +7,12 @@
 <style media="screen">
   #mapid{height: 400px;margin-bottom: 10px;}
 </style>
-{!! Form::model($model, [
+<!-- {!! Form::model($model, [
     'route' => $model->exists ? ['lokasi.update', $model->id] : 'lokasi.store',
     'method' => $model->exists ? 'PUT' : 'POST'
-]) !!}
+]) !!} -->
+<form action="{{route('lokasi.store', $model->id)}}" method="POST" enctype="multipart/form-data">
+  @csrf
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -27,15 +29,13 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="form-group">
-          <label for="" class="control-label">Kategori</label>
+        <!-- <div class="form-group">
+          <label for="" class="control-label">Kategori</label> -->
           <!-- {!! Form::select('kategori', $kategori->pluck('name'), $kategori->pluck('id'), ['class' => 'form-control', 'id' => 'kategori']) !!} -->
           <!-- <select class="form-control" name="kategori" id="kategori">
           <option value="{{$kategori->pluck('id')}}">{{$kategori->pluck('name')}}</option>
         </select> -->
-        </div>
-        <form action="{{route('lokasi.store', $model->id)}}" method="POST" enctype="multipart/form-data">
-        @csrf
+        <!-- </div> -->
         <div class="form-group">
           <label for="" class="control-label">Provinsi</label>
           {!! Form::select('provinsi', [Prov($model->provinsi)], null , ['class' => 'form-control js-example-basic-single', 'id' => 'provinsi']) !!}
