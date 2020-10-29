@@ -81,7 +81,7 @@ Route::get('/table/user', 'UserController@dataTable')->name('table.user');
 // anduser
 // lokasi
 Route::resource('/lokasi', 'LokasiController');
-Route::resource('/simpanData', 'LokasiController@save');
+// Route::resource('/simpanData', 'LokasiController@save');
 Route::get('/table/lokasi', 'LokasiController@dataTable')->name('table.lokasi');
 // andlokasi
 // icon

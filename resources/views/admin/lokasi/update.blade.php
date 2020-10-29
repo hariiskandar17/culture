@@ -7,19 +7,16 @@
 <style media="screen">
   #mapid{height: 400px;margin-bottom: 10px;}
 </style>
-<!-- {!! Form::model($model, [
-    'route' => $model->exists ? ['lokasi.update', $model->id] : 'lokasi.store',
-    'method' => $model->exists ? 'PUT' : 'POST'
-]) !!} -->
-<form action="{{ route('lokasi.update',$model) }}" method="post">
-        @csrf
-        @method('PUT')
+<form action="{{ route('lokasi.update',$model) }}" method="post" enctype="multipart/form-data">
+      @csrf
+      {{ method_field('PUT') }}
         <div class="form-group">
             <label for="title">Nama</label>
             <input type="text" value="{{ $model->name }}" class="form-control" name="name">
         </div>
         <div class="form-group">
             <label for="title">Alamat</label>
+            <input type="hidden" name="gambar" value="1603631263_Benteng Belgica.jpg">
             <input type="text" value="{{ $model->alamat }}" class="form-control" name="alamat">
         </div>
         <div class="form-group">
@@ -27,7 +24,12 @@
             <input type="text" value="{{ $model->kat }}" class="form-control" name="kategori">
         </div>
         <div class="form-group">
-           <label for="kategori">Kategori</label>
+            <label for="title">Thumbnail</label>
+            <input type="file" class="form-control" name="gambar" id="gambar" value="{{$deskripsi->gambar}}">
+            <label for="gambar"> Select a file to upload</label>
+        </div>
+        <div class="form-group">
+           <label for="kategori">Icon</label>
            <select name="type_id" class="form-control col-12" id="kategori">
                @foreach ($kategori as $kt)
                <option value="{{ $kt->id }}">{{  $kt->name }}</option>
@@ -59,22 +61,20 @@
             <textarea name="deskripsi" id="deskripsi" class="form-control">{{$deskripsi->deskripsi}}</textarea>
         </div>
 
-           <div class="col-md-6">
-               <div class="form-group">
-                   <label for="latitude" class="control-label">Latitude</label>
-                   <input id="latitude" type="text" class="form-control{{ $errors->has('latitude') ? ' is-invalid' : '' }}" name="latitude" value="{{ old('latitude', request('latitude')) }}" required>
-                   {!! $errors->first('latitude', '<span class="invalid-feedback" role="alert">:message</span>') !!}
-               </div>
-           </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+              <label for="latitude" class="control-label">Latitude</label>
+              <input id="latitude" type="text" class="form-control{{ $errors->has('latitude') ? ' is-invalid' : '' }}" name="latitude" value="{{ old('latitude', request('latitude')) }}" required>
+              {!! $errors->first('latitude', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+            </div>
+            <div class="form-group col-md-6">
+              <label for="longitude" class="control-label">Longitude</label>
+              <input id="longitude" type="text" class="form-control{{ $errors->has('longitude') ? ' is-invalid' : '' }}" name="longitude" value="{{ old('longitude', request('longitude')) }}" required>
+              {!! $errors->first('longitude', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+            </div>
+        </div>
 
-           <div class="col-md-6">
-               <div class="form-group">
-                   <label for="longitude" class="control-label">Longitude</label>
-                   <input id="longitude" type="text" class="form-control{{ $errors->has('longitude') ? ' is-invalid' : '' }}" name="longitude" value="{{ old('longitude', request('longitude')) }}" required>
-                   {!! $errors->first('longitude', '<span class="invalid-feedback" role="alert">:message</span>') !!}
-               </div>
-           </div>
-       <div id="mapid"></div>
+        <div id="mapid"></div>
         <button type="submit" class="btn btn-primary col-12">Ubah</button>
     </form>
 

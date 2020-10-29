@@ -144,49 +144,56 @@ class LokasiController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-      $content = $request->deskripsi;
-       // domdocument() => mengenerate objek dom php
-       $dom = new \domdocument();
-       $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-       $images = $dom->getelementsbytagname('img');
-
-       foreach ($images as $k => $img) {
-           $data = $img->getAttribute('src');
-           list($type, $data) = explode(';', $data);
-           list(, $data)      = explode(',', $data);
-           $data = base64_decode($data);
-           $image_name = '/' . time()  . $k . '.png';
-           $path = public_path('image\img-content') . $image_name;
-           file_put_contents($path, $data);
-           $img->removeAttribute('src');
-           $img->setAttribute('class', 'img-fluid');
-           $img->setAttribute('src', asset('deskripsi') . $image_name);
-       }
-            $content = $dom->savehtml();
-
-            $gambar = $request->file('gambar');
-            $gambarBaru = time().'_'.$gambar->getClientOriginalName();
-            $tujuan = 'deskripsi';
-            $gambar->move($tujuan,$gambarBaru);
-
-
       $this->validate($request, [
-        'name' => 'required',
-        'alamat' => 'required',
-        'kategori' => 'required',
-        'provinsi' => 'required',
-        'kabupaten' => 'required',
-        'kecamatan' => 'required',
-        'latitude' => 'required',
-        'longitude' => 'required',
-        'deskripsi' => 'required',
-      ]);
+      // 'name' => 'required',
+      // 'alamat' => 'required',
+      // 'kategori' => 'required',
+      // 'provinsi' => 'required',
+      // 'kabupaten' => 'required',
+      // 'kecamatan' => 'required',
+      // 'latitude' => 'required',
+      // 'longitude' => 'required',
+      // 'deskripsi' => 'required'
+    ]);
 
-      $model = Lokasi::findOrFail($id);
-      $model->update($request->all());
+    $content = $request->deskripsi;
+    // domdocument() => mengenerate objek dom php
+    $dom = new \domdocument();
+    $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    $images = $dom->getelementsbytagname('img');
 
-      Deskripsi::update([
+    foreach ($images as $k => $img) {
+      $data = $img->getAttribute('src');
+      list($type, $data) = explode(';', $data);
+      list(, $data)      = explode(',', $data);
+      $data = base64_decode($data);
+      $image_name = '/' . time()  . $k . '.png';
+      $path = public_path('image\img-content') . $image_name;
+      file_put_contents($path, $data);
+      $img->removeAttribute('src');
+      $img->setAttribute('class', 'img-fluid');
+      $img->setAttribute('src', asset('deskripsi') . $image_name);
+    }
+    $content = $dom->savehtml();
+
+    $gambar = $request->file('gambar');
+    if ($gambar) {
+      $gambarBaru = time() . '_' . $gambar->getClientOriginalName();
+      $tujuan = 'deskripsi';
+      $gambar->move($tujuan, $gambarBaru);
+    } else {
+      $gambarBaru = $request->bahela;
+    }
+
+
+
+    $model = Lokasi::findOrFail($id);
+    // $data = Lokasi::get();
+    $model->update($request->all());
+
+
+    $mari = Deskripsi::findorFail($id);
+    $mari->update([
       'id_lokasi' => $model->id,
       'gambar' => $gambarBaru,
       'deskripsi' => $content
