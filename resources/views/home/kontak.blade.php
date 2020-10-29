@@ -13,7 +13,7 @@
                    <p class="text-center">
                        Silahkan hubungi kami untuk keperluan privasi
                    </p>
-                   <form action="{{ route('send-email')}}" method="POST">
+                   <form action="{{ url('send-mail')}}" method="POST">
                     @csrf
                        <div class="form-row">
                            <div class="form-group col-md-6">

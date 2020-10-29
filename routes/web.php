@@ -19,7 +19,7 @@ Route::get('/', 'HomeController@index')->name('/');
 
 Route::get('/map', 'MapController@index')->name('map.index');
 
-Route::post('/mail', 'MailController@send')->name('send-email');
+Route::post('/send-mail', 'MailController@send')->name('send-email');
 
 Route::get('/v-2', 'MapController@v2')->name('v2.index');
 Route::post('/dataMap', 'MapController@mapData')->name('map');
@@ -90,7 +90,7 @@ Route::get('/table/icon', 'IconController@dataTable')->name('table.icon');
 // andicon
 // lokasi culture
 Route::resource('/culture', 'LokasiBudayaController');
-Route::resource('/mail', 'EmailController');
+// Route::resource('/mail', 'EmailController');
 Route::get('/table/culture', 'LokasiBudayaController@dataTable')->name('table.culture');
 // end lokasi culture
 // andadmin

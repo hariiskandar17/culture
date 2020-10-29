@@ -25,8 +25,9 @@
         </div>
         <div class="form-group">
             <label for="title">Thumbnail</label>
-            <input type="file" class="form-control" name="gambar" id="gambar" value="{{$deskripsi->gambar}}">
-            <label for="gambar"> Select a file to upload</label>
+            <input  Input::old('Receipt'), type="file" name="gambar" value = '{{$deskripsi->gambar}}'><td><?php echo $deskripsi->Receipt; ?></td>
+            <!-- <input type="file" class="form-control" name="gambar" id="gambar" value="{{$deskripsi->gambar}}"> -->
+            <!-- <label for="gambar"> Select a file to upload</label> -->
         </div>
         <div class="form-group">
            <label for="kategori">Icon</label>
@@ -64,12 +65,12 @@
         <div class="row">
             <div class="form-group col-md-6">
               <label for="latitude" class="control-label">Latitude</label>
-              <input id="latitude" type="text" class="form-control{{ $errors->has('latitude') ? ' is-invalid' : '' }}" name="latitude" value="{{ old('latitude', request('latitude')) }}" required>
+              <input id="latitude" type="text" class="form-control{{ $errors->has('latitude') ? ' is-invalid' : '' }}" name="latitude" value="{{$model->latitude}}" required>
               {!! $errors->first('latitude', '<span class="invalid-feedback" role="alert">:message</span>') !!}
             </div>
             <div class="form-group col-md-6">
               <label for="longitude" class="control-label">Longitude</label>
-              <input id="longitude" type="text" class="form-control{{ $errors->has('longitude') ? ' is-invalid' : '' }}" name="longitude" value="{{ old('longitude', request('longitude')) }}" required>
+              <input id="longitude" type="text" class="form-control{{ $errors->has('longitude') ? ' is-invalid' : '' }}" name="longitude" value="{{$model->longitude}}" required>
               {!! $errors->first('longitude', '<span class="invalid-feedback" role="alert">:message</span>') !!}
             </div>
         </div>

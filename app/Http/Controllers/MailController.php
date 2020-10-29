@@ -17,12 +17,12 @@ class MailController extends Controller
     public function send(Request $request)
     {
         try {
-            // email => template html 
+            // email => template html
             Mail::send('email', ['nama' => $request->nama, 'pesan' => $request->pesan, 'email' => $request->email], function ($message) use ($request) {
                 $message->subject($request->judul);
                 // from(dari email,namanya)
                 $message->from($request->email, $request->name);
-                $message->to('abangabong100@gmail.com');
+                $message->to('hariiskandarmuda@gmail.com');
             });
             return back()->with('alert-success', "
             <script>
